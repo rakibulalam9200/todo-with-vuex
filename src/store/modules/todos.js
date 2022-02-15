@@ -2,7 +2,6 @@
 const state = {
     todos: [
         {
-
             title: 'FirstTodo',
             date: '2021-02-15',
             status: 'Pending'
@@ -12,7 +11,6 @@ const state = {
             date: '2021-12-31',
             status: 'Pending'
         },
-
 
     ],
 
@@ -34,13 +32,6 @@ const actions = {
         console.log('update to do commit',editTodo)
         commit('update_todo',editTodo)
     },
-    // changeStatus(index){
-    //     let newIndex = this.availableStatus.indexOf(this.todos[index].status)
-    //     if(++newIndex > 2){
-    //         newIndex = 0;
-    //     }
-    //     this.todos[index].status = this.availableStatus[newIndex];
-    // }
 
     changeStatus({commit},index){
         commit('change_status',index)
@@ -62,14 +53,6 @@ const mutations = {
         state.todos[index].title = editTodo.title;
         state.todos[index].date = editTodo.date;
         state.todos[index].status = editTodo.status;
-        // const todoIndex = state.todos.indexOf(editTodo);
-        //console.log(editTodo)
-        // if(index === todoIndex){
-        //     console.log(this.state.allTodos())
-        // }
-        // const index = state.todos.indexOf(editTodo);
-        // console.log(index);
-        // state.todos.splice(index,1,editTodo);
 
     },
     change_status(state,index){

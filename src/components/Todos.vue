@@ -2,8 +2,16 @@
     <div>
         <h1 class="todo-header">Welcome Todos</h1>
         <router-link to="/addTodo/">
-          <p><button class="todo-btn">ADD A ToDo</button></p>
+          <button class="btn todo-btn">ADD A ToDo</button>
         </router-link>
+
+      <router-link to="/addUser/">
+        <button class="btn user-btn">ADD A User</button>
+      </router-link>
+
+      <router-link to="/userList/">
+        <button class="btn user-list-btn">UserList</button>
+      </router-link>
 
         <table id="todo-table">
           <caption>Your All ToDos List</caption>
@@ -16,9 +24,10 @@
           <tr v-for="(todo , index) in allTodos" :key="index">
             <td>{{todo.title}}</td>
             <td>{{todo.date}}</td>
-            <td>
+            <td v-bind:style= "[todo.status === 'Done' ? {'background-color': 'red','color':'white'} : {}]">
 
-                      <span :class="changeStatus(2)" @click="changeStatus(index)" class="pointer">
+                      <span
+                          @click="changeStatus(index)" class="pointer">
                           {{todo.status}}
                       </span>
             </td>
@@ -46,17 +55,18 @@ export default {
             
         };
     },
-    computed:mapGetters(['allTodos']),
+    computed:{
+      ...mapGetters(['allTodos'])
+    },
 
     methods: {
       ...mapActions(['deleteTodo','changeStatus']),
 
     },
-    mounted() {
-      if(this.changeStatus(2)){
+  mounted() {
+    console.log("available status",this.$store.state.availableStatus)
+  }
 
-      }
-    }
 
 };
 </script>
@@ -66,11 +76,37 @@ export default {
   background-color: aquamarine;
   padding: 10px;
 }
-.todo-btn{
+.btn{
   border-radius: 10px;
-  background-color: greenyellow;
   padding: 10px 20px;
   border: 2px solid red;
+  margin-right: 20px;
+  font-size: 1.2rem;
+  font-width: bold;
+}
+
+.todo-btn{
+  background-color: #04AA6D;
+}
+.todo-btn:hover{
+  background-color: aquamarine;
+}
+
+
+.user-btn{
+  background-color: aquamarine;
+}
+
+.user-btn:hover{
+  background-color: #04AA6D;
+}
+
+.user-list-btn{
+  background-color: cadetblue;
+}
+
+.user-list-btn:hover{
+  background-color: lightskyblue;
 }
 #todo-table caption{
   font-size: 30px;
@@ -105,4 +141,10 @@ export default {
   margin-right: 20px;
   font-size: 1.2rem;
 }
+
+.status-change{
+  background-color: red;
+  color: white;
+}
+
 </style>
