@@ -9,6 +9,7 @@ import AddTodo from "@/components/AddTodo";
 import EditTodo from "@/components/EditTodo";
 import AddUser from "@/components/AddUser";
 import UserList from "@/components/UserList";
+import EditUser from "@/components/EditUser";
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
@@ -19,6 +20,7 @@ const routes = [
   {path:'/editTodo/:index',component: EditTodo},
   {path:'/addUser/',component: AddUser},
   {path:'/userList/',component: UserList},
+  {path:'/editUser/:id',component: EditUser},
 ]
 
 const router = new VueRouter({

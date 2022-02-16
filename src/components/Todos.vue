@@ -1,20 +1,19 @@
+
 <template>
     <div>
-        <h1 class="todo-header">Welcome Todos</h1>
-        <router-link to="/addTodo/">
-          <button class="btn todo-btn">ADD A ToDo</button>
-        </router-link>
-
-      <router-link to="/addUser/">
-        <button class="btn user-btn">ADD A User</button>
-      </router-link>
-
-      <router-link to="/userList/">
-        <button class="btn user-list-btn">UserList</button>
-      </router-link>
-
         <table id="todo-table">
-          <caption>Your All ToDos List</caption>
+          <caption>Your All ToDos List
+          <span>
+
+            <router-link to="/userList/">
+                <button class="btn2 user-list-btn"><i class="fa-solid fa-users"></i></button>
+            </router-link>
+
+            <router-link to="/addTodo/">
+                <button class="btn todo-btn"> <i class="fa-solid fa-square-plus"></i></button>
+            </router-link>
+          </span>
+          </caption>
           <tr>
             <th>Title</th>
             <th>Time</th>
@@ -46,10 +45,12 @@
 
 <script>
 
-  import {mapGetters,mapActions} from 'vuex';
+import {mapGetters,mapActions} from 'vuex';
 export default {
     name: 'Todos',
+    component: {
 
+    },
     data() {
         return {
             
@@ -67,7 +68,6 @@ export default {
     console.log("available status",this.$store.state.availableStatus)
   }
 
-
 };
 </script>
 
@@ -76,18 +76,24 @@ export default {
   background-color: aquamarine;
   padding: 10px;
 }
-.btn{
+.btn {
+  float: right;
   border-radius: 10px;
-  padding: 10px 20px;
-  border: 2px solid red;
+  border: none;
   margin-right: 20px;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-width: bold;
 }
 
-.todo-btn{
-  background-color: #04AA6D;
+.btn2 {
+  float: right;
+  border-radius: 10px;
+  border: none;
+  margin-right: 10px;
+  font-size: 1.3rem;
+  font-width: bold;
 }
+
 .todo-btn:hover{
   background-color: aquamarine;
 }
@@ -101,9 +107,6 @@ export default {
   background-color: #04AA6D;
 }
 
-.user-list-btn{
-  background-color: cadetblue;
-}
 
 .user-list-btn:hover{
   background-color: lightskyblue;

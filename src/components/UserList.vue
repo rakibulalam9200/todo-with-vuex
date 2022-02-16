@@ -1,24 +1,37 @@
 <template>
   <div>
-    <h1 class="todo-header">Users List</h1>
-
 
     <table id="todo-table">
-      <caption>All User List</caption>
+      <caption>All User List <span>
+        <router-link to="/addUser/">
+          <button class="btn user-btn"><i class="fa-solid fa-user-plus"></i></button>
+        </router-link>
+      </span></caption>
+
       <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Email</th>
+        <th>Todos</th>
         <th>Action</th>
       </tr>
-      <tr v-for="(user , index) in getAllusers" :key="index">
-        <td>{{user.id}}</td>
-        <td>{{user.name}}</td>
-        <td>{{user.email}}</td>
+      <tr v-for="(user , index) in getAllUsers" :key="index">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+         <td>
+           <div v-for="(tag , tagIndex) in user.tags" :key="tagIndex">
+             {{tag}},
+           </div>
+
+         </td>
 
         <td>
-          <button class="btn-action"><i class="fa-solid fa-pen-to-square"></i></button>
-          <button class="btn-action"><i class="fa-solid fa-trash"></i></button>
+          <router-link :to="`/editUser/${user.id}`">
+            <button class="btn-action"><i class="fa-solid fa-pen-to-square"></i></button>
+          </router-link>
+
+          <button @click="deleteUser(user.id)" class="btn-action"><i class="fa-solid fa-trash"></i></button>
         </td>
       </tr>
     </table>
@@ -27,70 +40,69 @@
 
 <script>
 
-import {mapGetters} from 'vuex';
+import {mapGetters, mapActions} from 'vuex';
+
 export default {
   name: 'Todos',
 
   data() {
-    return {
-
-    };
+    return {};
   },
-  computed:{
-    ...mapGetters(['getAllusers']),
+  computed: {
+    ...mapGetters(['getAllUsers']),
 
   },
 
   methods: {
-
-
+    ...mapActions(['deleteUser'])
   },
   mounted() {
-    console.log(this.getUsersId)
+      console.log(this.getAllUsers)
   }
 
 
 };
 </script>
 
-<style  scoped>
-.todo-header{
+<style scoped>
+.todo-header {
   background-color: aquamarine;
   padding: 10px;
 }
-.btn{
+
+.btn {
+  float: right;
   border-radius: 10px;
-  padding: 10px 20px;
-  border: 2px solid red;
+  border: none;
   margin-right: 20px;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-width: bold;
 }
 
-.todo-btn{
+.todo-btn {
   background-color: #04AA6D;
 }
-.todo-btn:hover{
+
+.todo-btn:hover {
   background-color: aquamarine;
 }
 
 
-.user-btn{
+.user-btn:hover {
   background-color: aquamarine;
 }
 
-.user-btn:hover{
-  background-color: #04AA6D;
-}
-#todo-table caption{
+#todo-table caption {
   font-size: 30px;
   margin-top: 30px;
   padding: 10px;
   font-weight: bold;
 }
-.pointer{
+
+.pointer {
   cursor: pointer;
 }
+
 #todo-table th {
   padding-top: 12px;
   padding-bottom: 12px;
@@ -98,25 +110,33 @@ export default {
   background-color: #04AA6D;
   color: white;
 }
+
 #todo-table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
+
 #todo-table td, #todo-table th {
   border: 1px solid #ddd;
   padding: 8px;
 }
-#todo-table tr:nth-child(even){background-color: #f2f2f2;}
-#todo-table tr:hover {background-color: #ddd;}
 
-.btn-action{
+#todo-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#todo-table tr:hover {
+  background-color: #ddd;
+}
+
+.btn-action {
   color: #04AA6D;
   margin-right: 20px;
   font-size: 1.2rem;
 }
 
-.status-change{
+.status-change {
   background-color: red;
   color: white;
 }

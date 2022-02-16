@@ -15,8 +15,8 @@ const state = {
 
 };
 const getters = {
-    getAllusers: state => state.users,
-    getUsersId: state=> state.users[state.users.length-1].id,
+    getAllUsers: state => state.users.length !== 0 && state.users,
+    getUsersId: state=> state.users.length !== 0 && state.users[state.users.length - 1].id,
 };
 const actions = {
     addUser({commit},user){
@@ -24,6 +24,7 @@ const actions = {
     },
     deleteUser({commit},id){
         commit("delete_user",id);
+        console.log("commit","user id",id)
     },
     updateUser({commit}, editUser){
         console.log('update user commit',editUser)
@@ -32,17 +33,21 @@ const actions = {
 };
 const mutations = {
     add_user(state,user){
-        state.users.unshift(user);
+        state.users.push(user);
     },
-    delete_user(state,id){
-        state.users.splice(id,1)
-    },
-    update_todo(state,editUser){
-        console.log(editUser)
-        const id = editUser.id;
-        console.log(id);
 
+    delete_user(state,id){
+        console.log("Mutation user id",id-1)
+        const users = state.users.filter(user=> user.id !== id )
+        state.users = users;
     },
+    update_user(state,editUser){
+        console.log(editUser);
+        const index = state.users.findIndex(user=> user.id == editUser.id);
+        state.users[index].name = editUser.name;
+        state.users[index].email = editUser.email;
+    }
+
 };
 
 export default{

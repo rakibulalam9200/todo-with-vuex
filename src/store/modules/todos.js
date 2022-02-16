@@ -41,7 +41,7 @@ const actions = {
 
 const mutations = {
     add_todo(state,todo){
-        state.todos.unshift(todo);
+        state.todos.push(todo);
     },
     delete_todo(state,index){
         state.todos.splice(index,1)

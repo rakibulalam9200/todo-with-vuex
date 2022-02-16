@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>Edit A TODO</h1>
-    <h3>{{ $route.params.index }}</h3>
     <div>
       <form @submit.prevent="onSubmit()">
         <input type="text" v-model="initialTodo.title" placeholder="Input your To Do">
@@ -20,7 +19,7 @@
 import {mapActions, mapGetters} from 'vuex';
 
 export default {
-  name: 'Add',
+  name: 'EditTodo',
   data() {
     return {
       initialTodo: {
