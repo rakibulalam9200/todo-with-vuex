@@ -4,12 +4,14 @@ const state = {
         {
             id: 1,
             name: 'Tafiq Khan',
-            email: 'Tafiq@gmail.com'
+            email: 'Tafiq@gmail.com',
+            tags: [],
         },
         {
             id: 2,
             name: 'Sajal Khan',
-            email: 'sajal@gmail.com'
+            email: 'sajal@gmail.com',
+            tags: []
         }
     ]
 
@@ -46,6 +48,7 @@ const mutations = {
         const index = state.users.findIndex(user=> user.id == editUser.id);
         state.users[index].name = editUser.name;
         state.users[index].email = editUser.email;
+        state.users[index].tags = editUser.tags;
     }
 
 };

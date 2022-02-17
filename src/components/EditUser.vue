@@ -3,16 +3,20 @@
     <h1>Edit A User</h1>
     <div>
       <form @submit.prevent="onSubmit">
-        <input type="text" v-model="user.name"  placeholder="Enter your name">
+        <input type="text" v-model="user.name" placeholder="Enter your name">
         <br>
         <p v-if="isNameError">Please, Enter Your Name</p>
         <input type="email" v-model="user.email" placeholder="Enter your Email">
         <br>
         <p v-if="isEmailError">Please, Enter Your Email</p>
-        <multiselect style="width: 50%; margin: 0 auto;" v-model="value" tag-placeholder="Add this as new tag" placeholder="Search or add a tag"
-                     label="title" track-by="title" :options="options" :multiple="true" @select="addTag">
+
+        <multiselect style="width: 50%; margin: 0 auto;" v-model="user.tags" tag-placeholder="Add this as new tag"
+                     placeholder="Search or add a tag"
+                     label="title" track-by="title" :options="options" :multiple="true"  :taggable="true" @select="addTag" >
         </multiselect>
+
         <button type="submit">Submit</button>
+
       </form>
     </div>
   </div>
@@ -27,45 +31,46 @@ export default {
   components: {
     Multiselect
   },
-  data(){
-    return{
-      user:{
+  data() {
+    return {
+      user: {
         id: null,
         name: '',
         email: '',
-        tags:[]
-
+        tags: [],
       },
-      value: [],
+      //value: [],
       options: [],
       isNameError: false,
       isEmailError: false,
     }
   },
-  computed:{
-    ...mapGetters(['getAllUsers','getUsersId','allTodos'])
+  computed: {
+    ...mapGetters(['getAllUsers', 'getUsersId', 'allTodos'])
   },
   mounted() {
+
     this.options = this.allTodos;
-    this.user.name = this.getAllUsers[this.$route.params.id-1].name;
-    this.user.email = this.getAllUsers[this.$route.params.id-1].email;
-    this.user.tags = this.getAllUsers[this.$route.params.id-1].tags;
-    console.log(this.user.tags);
-    this.value = [...this.user.tags];
+    this.user.name = this.getAllUsers[this.$route.params.id - 1].name;
+    this.user.email = this.getAllUsers[this.$route.params.id - 1].email;
+    this.user.tags = this.getAllUsers[this.$route.params.id - 1].tags ?? [];
+    console.log("user tags is undefined tags", this.getAllUsers[this.$route.params.id - 1].tags);
+    console.log("user tags is undefined", this.user.tags);
+
   },
-  methods:{
+  methods: {
     ...mapActions(['updateUser']),
-    onSubmit(){
-      if(this.user.name.length === 0){
+    onSubmit() {
+      if (this.user.name.length === 0) {
         this.isNameError = true
         return
-      }else{
+      } else {
         this.isNameError = false
       }
-      if(this.user.email.length === 0) {
+      if (this.user.email.length === 0) {
         this.isEmailError = true
         return
-      }else{
+      } else {
         this.isEmailError = false
       }
 
@@ -76,12 +81,14 @@ export default {
         tags: this.user.tags,
       })
 
+      console.log("Update: ", this.updateUser)
+
       this.$router.push('/userList/');
     },
-    addTag (newTag) {
-      console.log(newTag.title)
-      this.users.tags.push(newTag.title)
-      console.log(this.users.tags)
+    addTag(newTag) {
+      // this.user.tags.push(newTag)
+      console.log(newTag)
+      console.log(this.user.tags)
     },
 
 
@@ -91,7 +98,7 @@ export default {
 </script>
 
 <style scoped>
-input[type=text],input[type=email], select {
+input[type=text], input[type=email], select {
   width: 50%;
   padding: 12px 20px;
   margin: 8px 0;

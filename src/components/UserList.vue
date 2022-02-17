@@ -20,9 +20,9 @@
         <td>{{ user.name }}</td>
         <td>{{ user.email }}</td>
          <td>
-           <div v-for="(tag , tagIndex) in user.tags" :key="tagIndex">
-             {{tag}},
-           </div>
+           <span v-for="(tag , tagIndex) in user.tags" :key="tagIndex">
+             {{tag.title}},
+           </span>
 
          </td>
 

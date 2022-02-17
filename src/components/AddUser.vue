@@ -24,8 +24,9 @@
         <p v-if="isEmailError">Please, Enter Your Email</p>
 
         <multiselect style="width: 50%; margin: 0 auto;" v-model="value" tag-placeholder="Add this as new tag" placeholder="Search or add a tag"
-                     label="title" track-by="title" :options="options" :multiple="true" @select="addTag">
+                     label="title" track-by="title" :options="options" :multiple="true"  :taggable="true"  @select="addTag">
         </multiselect>
+
 
         <button type="submit">Submit</button>
       </form>
@@ -48,15 +49,14 @@ export default {
         id: null,
         name: '',
         email: '',
+        tags: []
 
       },
       isNameError: false,
       isEmailError: false,
-      value: [
-
-      ],
       options:  [],
-      tags: [],
+      value: [],
+
     }
   },
   computed: {
@@ -82,25 +82,24 @@ export default {
         id: this.getUsersId + 1,
         name: this.user.name,
         email: this.user.email,
-        tags: this.tags
+        tags: this.value,
       })
 
       this.$router.push('/userList/');
     },
 
-
     addTag (newTag) {
-      console.log(newTag.title)
-      this.tags.push(newTag.title)
-      console.log(this.tags)
-    },
+      console.log(newTag)
 
+    },
   },
 
   mounted() {
-    this.options = this.allTodos
+    this.options = this.allTodos;
     console.log(this.allTodos);
     console.log('options',this.options);
+    console.log(this.user.tags)
+
     // let titles =[];
     // for(let i = 0;i<this.allTodos.length;i++) {
     //   let title = this.allTodos[i].title;
